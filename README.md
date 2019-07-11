@@ -7,8 +7,8 @@ PhotoPrism is a server-based application for browsing, organizing, and sharing y
 ## TL;DR;
 
 ```console
-helm repo add photoprism-helm https://p80n.github.io/photoprism-helm/
-helm install photoprism-helm/photoprism --set persistence=false
+helm repo add p80n https://p80n.github.io/photoprism-helm/
+helm install p80n/photoprism --set persistence=false
 ```
 
 ## Introduction
@@ -25,7 +25,7 @@ This chart includes support for including your existing photos and specifying an
 To install the chart with the release name `my-release`:
 
 ```console
-helm install p80n/photoprism-helm --name photoprism-test --namespace photoprism-test --set persistence.enabled=false
+helm install p80n/photoprism --name photoprism-test --namespace photoprism-test -f values.yaml
 ```
 
 
