@@ -1,0 +1,7 @@
+name: photoprism
+home: https://photoprism.org/
+description: A Photoprism Helm chart for Kubernetes
+appVersion: "20190703"
+version: 0.1.0
+sources:
+- https://github.com/photoprism/photoprism

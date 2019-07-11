@@ -1,0 +1,103 @@
+# An example values.yaml that configures:
+# - Existing volumes for persistent storage and importing pre-existing photos
+# - A remote database to use
+# - Ingress rules for access (requires a reverse proxy, like NGINX, to be running)
+
+replicaCount: 1
+
+image:
+  repository: photoprism/photoprism
+  tag: "20190703"
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+server:
+  debug: "true"
+  persistence:
+    enabled: true
+    cachePath: &cachePath /assets/cache
+    importPath: &importPath /assets/photos/import
+    exportPath: &exportPath /assets/photos/export
+    originalsPath: &originalsPath /assets/photos/originals
+    volumeMounts:
+    - name: originals
+      mountPath: *originalsPath
+      subPath: "media/photos"
+    - name: photoprism
+      mountPath: *cachePath
+      subPath: "cache"
+    - name: photoprism
+      mountPath: *importPath
+      subPath: "import"
+    - name: photoprism
+      mountPath: *exportPath
+      subPath: "export"
+    volumes:
+    # NFS share used by Lightroom and PhotoPrism
+    - name: originals
+      nfs:
+        server: nfs.server
+        path: /lightroom
+        readOnly: true     # PhotoPrism should not delete your originals, but just to be safe...
+    # Photoprism-only share for storing image thumbnails, etc.
+    - name: photoprism
+      nfs:
+        server: nfs.server
+        path: /photoprism
+
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: true
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    kubernetes.io/tls-acme: "true"
+# See
+# https://github.com/jetstack/cert-manager
+# for putting your site behind https using Let's Encrypt https://letsencrypt.org/
+    certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+# Check out
+# https://github.com/kubernetes-retired/contrib/tree/master/ingress/controllers/nginx/examples/auth
+# for putting PhotoPrism behind a bit of authentication.
+# This should only be considered a stop-gap until PhotoPrism has its own authentication layer, and should NOT be considered secure.
+    nginx.ingress.kubernetes.io/auth-realm: Authentication Required - private
+    nginx.ingress.kubernetes.io/auth-secret: basic-auth
+    nginx.ingress.kubernetes.io/auth-type: basic
+  hosts:
+  - host: photoprism.mydomain.com
+    paths:
+    - /
+  tls:
+  - hosts:
+    - photoprism.mydomain.com
+    secretName: gallery-cert
+
+resources:
+  requests:
+    memory: 2Gi
+  # limits:
+  #   cpu: 100m
+  #   memory: 128Mi
+
+# Some of my nodes can't run photoprism (I think it's a golang bug). So I've labelled the ones that can.
+nodeSelector:
+  app: photoprism
+
+# tolerations: []
+
+# affinity: {}
+
+
+# To use a remote MySQL or TiDB instance, set the value for driver to 'mysql'
+database:
+  driver: mysql
+# Set these values only if the mysql driver is used
+  name: photoprism
+  user: photoprism
+  password: photoprism
+  port: 3306
+  host: mariadb.db

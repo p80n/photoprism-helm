@@ -1,0 +1,105 @@
+# Default values for Photoprism.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: photoprism/photoprism
+  tag: "20190703"
+  pullPolicy: IfNotPresent
+
+nameOverride: ""
+fullnameOverride: ""
+
+debug: "true"
+persistence:
+  enabled: true
+  cachePath: &cachePath /assets/cache
+  importPath: &importPath /assets/photos/import
+  exportPath: &exportPath /assets/photos/export
+  originalsPath: &originalsPath /assets/photos/originals
+  volumeMounts:
+  - name: originals
+    mountPath: *originalsPath
+    subPath: "path/to/originals"
+  - name: assets
+    mountPath: *cachePath
+    subPath: "cache"
+  - name: assets
+    mountPath: *importPath
+    subPath: "import"
+  - name: assets
+    mountPath: *exportPath
+    subPath: "export"
+  # Use volumes to add pre-existing persistent storage
+  # volumes:
+  # - name: originals
+  #   nfs:
+  #     server: my.nfs.serer
+  #     path: /path/for/originals/share
+  #     readOnly: true
+  # - name: assets
+  #   nfs:
+  #     server: my.nfs.server
+  #     path: /path/for/assets/share
+  # - name: database
+  #   nfs:
+  #     server: my.nfs.server
+  #     path: /path/for/database/share
+  # Use a volumeClaimTemplate to have Kubernetes dynamically allocate storage, if your cluster supports it
+  # volumeClaimTemplate:
+  # - metadata:
+  #     name: assets
+  #   spec:
+  #     accessModes: [ "ReadWriteMany" ]
+  #     storageClassName: "my-storage-class"   # You'll probably want to ensure your storage class has `reclaimPolicy: Retain`
+  #     resources:
+  #       requests:
+  #         storage: 100Gi
+  # - metadata:
+  #     name: database
+  #   spec:
+  #     accessModes: [ "ReadWriteOnce" ]
+  #     storageClassName: "my-storage-class"   # You'll probably want to ensure your storage class has `reclaimPolicy: Retain`
+  #     resources:
+  #       requests:
+  #         storage: 10Gi
+service:
+  type: ClusterIP
+  port: 80
+
+ingress:
+  enabled: false
+  annotations: {}
+  # kubernetes.io/ingress.class: nginx
+  # kubernetes.io/tls-acme: "true"
+  hosts:
+  - host: chart-example.local
+    paths:
+    - /
+  tls: []
+  # - secretName: chart-example-tls
+  #   hosts:
+  #   - chart-example.local
+
+resources:
+  requests:
+    memory: 2Gi
+
+# nodeSelector: {}
+
+# tolerations: []
+
+# affinity: {}
+
+
+# To use a remote MySQL or TiDB instance, set the value for driver to 'mysql'
+database:
+  driver: internal
+# Set these values only if the mysql driver is used
+#  name: photoprism
+#  user: root
+#  password: photoprism
+#  host: localhost
+#  port: 4000

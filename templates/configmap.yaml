@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: config
+  labels:
+{{ include "photoprism.labels" . | indent 4 }}
+data:
+  debug: "{{ .Values.debug }}"
+  serverMode: {{ if eq .Values.debug "true" -}} debug {{ else -}} release {{ end }}
+  cachePath: {{ .Values.persistence.cachePath }}
+  importPath: {{ .Values.persistence.importPath }}
+  exportPath: {{ .Values.persistence.exportPath }}
+  originalsPath: {{ .Values.persistence.originalsPath }}
+  driver: {{ .Values.database.driver }}
+{{- if eq .Values.database.driver "internal" }}
+  dsn: 'root:photoprism@tcp(localhost:4000)/photoprism?parseTime=true'
+{{ else }}
+  dsn: '{{ .Values.database.user }}:{{ .Values.database.password }}@tcp({{ .Values.database.host }}:{{ .Values.database.port }})/{{ .Values.database.name }}?parseTime=true'
+{{ end }}
