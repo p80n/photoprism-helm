@@ -17,7 +17,13 @@ This chart deploys PhotoPrism to your Kubernetes cluster. It's mostly based off 
 [docker-compose](https://github.com/photoprism/photoprism/blob/develop/docker-compose.yml) file
 available at [PhotoPrism's GitHub repository](https://github.com/photoprism/photoprism).
 
-This chart includes support for including your existing photos and specifying an ingress.
+Kubernetes is great for running PhotoPrism since there are a lot of related tools available to enhance 
+PhotoPrism:
+- [Cert Manager](https://github.com/jetstack/cert-manager) makes it easy to put PhotoPrism behind SSL
+- [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) makes it easy to expose PhotoPrism with actual URLs
+- If your reverse proxy supports it, you can add authentication (e.g., [basic auth](https://github.com/kubernetes-retired/contrib/tree/master/ingress/controllers/nginx/examples/auth)) to provide a bit of lockdown.
+- Running a database as a separate service helps with maintenance. Instead of figuring out what PhotoPrism 
+database files need to be backed up, you just backup your MySQL database as you always would.
 
 
 ## Installing the Chart
@@ -95,7 +101,7 @@ However, you'll still want to make sure that the database files are stored on pe
 for the path to TiDB's files.
 
 Alternately, if you prefer to run the database separately, you can point PhotoPrism at your remote instance. MySQL 
-and TiDB are both supported and are fairly equivalent on performance. In my experience, indexing photos is a bit faster
+and TiDB are both supported and are fairly equivalent on performance. In my experience, indexing photos is faster
 with MySQL, possibly due to faster write performance. 
 
 > Note:
