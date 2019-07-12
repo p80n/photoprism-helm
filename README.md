@@ -25,7 +25,7 @@ This chart includes support for including your existing photos and specifying an
 To install the chart with the release name `my-release`:
 
 ```console
-helm install p80n/photoprism --name photoprism-test --namespace photoprism-test -f values.yaml
+helm install p80n/photoprism --name my-release --namespace photoprism -f values.yaml
 ```
 
 
@@ -82,7 +82,7 @@ $ helm install p80n/photoprism-helm --name my-release \
 
 It's important to configure persistent storage (e.g., NFS) for any sort of real-world usage.
 I've been running PhotoPrism using two NFS shares: one for PhotoPrism's thumbnails cache, and one pointing to where I store my original images in Lightroom (read-only).
-This has been working well for me; keeping PhotoPrism assets separate keeps my Lightroom workspace uncluttered.
+This has been working well for me; keeping PhotoPrism assets separate keeps my Lightroom workspace ~~uncluttered~~ less cluttered.
 
 If you don't enable persistence, you can still take PhotoPrism for a spin; you'll just have to start from scratch if the pod dies or gets scheduled on a different node.
 
@@ -91,9 +91,12 @@ If you don't enable persistence, you can still take PhotoPrism for a spin; you'l
 
 PhotoPrism can be run without any external dependencies. If no remote database is provided, PhotoPrism will
 run [TiDB](https://github.com/pingcap/tidb) internally.
-However, you'll still want to make sure that the database files are stored on persistent storage. See `values.yaml`.
+However, you'll still want to make sure that the database files are stored on persistent storage. See `values.yaml`
+for the path to TiDB's files.
 
-Alternately, if you prefer to run the database separately, you can point PhotoPrism at your remote instance.
+Alternately, if you prefer to run the database separately, you can point PhotoPrism at your remote instance. MySQL 
+and TiDB are both supported and are fairly equivalent on performance. In my experience, indexing photos is a bit faster
+with MySQL, possibly due to faster write performance. 
 
 > Note:
 > Even if your remote database is TiDB, you still specify `mysql` for the driver.
@@ -102,8 +105,8 @@ Alternately, if you prefer to run the database separately, you can point PhotoPr
 
 The default values will only expose PhotoPrism inside your cluster on port 80. Some options for accessing PhotoPrism from outside your cluster:
 - Configure ingress rules for use with a reverse proxy
-- Change the service type to `NodePort` and pick a free port to expose > 30000
-- Access it from your client with [kubectl port-forwar](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
+- Change the service type to `NodePort` and pick a [free port to expose](https://kubernetes.io/docs/concepts/services-networking/service/)
+- Access it from your client with [kubectl port-forward](https://kubernetes.io/docs/tasks/access-application-cluster/port-forward-access-application-cluster/)
 
 ## Need Help?
 
