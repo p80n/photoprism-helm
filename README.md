@@ -6,7 +6,7 @@ PhotoPrism is a server-based application for browsing, organizing, and sharing y
 
 ## TL;DR;
 
-```console
+```bash
 helm repo add p80n https://p80n.github.io/photoprism-helm/
 helm install p80n/photoprism --set persistence=false
 ```
@@ -17,8 +17,8 @@ This chart deploys PhotoPrism to your Kubernetes cluster. It's mostly based off 
 [docker-compose](https://github.com/photoprism/photoprism/blob/develop/docker-compose.yml) file
 available at [PhotoPrism's GitHub repository](https://github.com/photoprism/photoprism).
 
-Kubernetes is great for running PhotoPrism since there are a lot of related tools available to enhance 
-PhotoPrism:
+Kubernetes is great for running PhotoPrism since there are a lot of k8s tools available to enhance 
+the experience:
 - [Cert Manager](https://github.com/jetstack/cert-manager) makes it easy to put PhotoPrism behind SSL
 - [Ingress](https://kubernetes.io/docs/concepts/services-networking/ingress/) makes it easy to expose PhotoPrism with actual URLs
 - If your reverse proxy supports it, you can add authentication (e.g., [basic auth](https://github.com/kubernetes-retired/contrib/tree/master/ingress/controllers/nginx/examples/auth)) to provide a bit of lockdown.
@@ -30,7 +30,7 @@ database files need to be backed up, you just backup your MySQL database as you 
 
 To install the chart with the release name `my-release`:
 
-```console
+```bash
 helm install p80n/photoprism --name my-release --namespace photoprism -f values.yaml
 ```
 
@@ -71,12 +71,12 @@ It's worth noting that PhotoPrism is under very active development, so expect th
 
 For setting nested values, it's generally easiest to just specify a YAML file that with the correct values:
 
-```console
+```bash
 $ helm install p80n/photoprism-helm --name my-release -f values.yaml
 ```
 
 You can specify each parameter using the `--set key=value[,key=value]` argument to `helm install`, but for nested values, it's complicated. For example:
-```console
+```bash
 $ helm install p80n/photoprism-helm --name my-release \
     --set=image.tag=latest \
     --set=volumes[0].name=originals --set=volumes[0].nfs.server=my.nfs.server --set=volumes[0].nfs.path=/path
