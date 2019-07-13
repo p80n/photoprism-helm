@@ -38,7 +38,6 @@ persistence:
   #   nfs:
   #     server: my.nfs.serer
   #     path: /path/for/originals/share
-  #     readOnly: true
   # - name: assets
   #   nfs:
   #     server: my.nfs.server
