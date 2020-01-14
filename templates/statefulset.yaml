@@ -102,10 +102,7 @@ spec:
       - name: database
         emptyDir: {}
     {{- end }}
-{{- if and .Values.persistence.enabled .Values.persistence.volumeClaimTemplate }}
-  volumeClaimTemplate:
-    {{- toYaml .Values.persistence.volumeClaimTemplate | nindent 2 }}
-{{- end }}
+{{- with .Values.affinity }}
       affinity:
 {{ toYaml . | indent 8 }}
     {{- end }}
@@ -113,3 +110,7 @@ spec:
       tolerations:
 {{ toYaml . | indent 8 }}
     {{- end }}
+{{- if and .Values.persistence.enabled .Values.persistence.volumeClaimTemplate }}
+  volumeClaimTemplate:
+    {{- toYaml .Values.persistence.volumeClaimTemplate | nindent 2 }}
+{{- end }}
