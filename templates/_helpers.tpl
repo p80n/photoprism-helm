@@ -43,3 +43,27 @@ app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
 app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{- end -}}
+
+{{/**************************************************************************/}}
+{{/* Return an appropriate DSN depending on the database type */}}
+{{- define "photoprism.databaseDSN" -}}
+
+  {{- if eq .Values.database.driver "sqlite" -}}
+
+    {{- if and .Values.persistence.enabled .Values.persistence.storagePath -}}
+      {{- printf "%s/photoprism.sqlite" .Values.persistence.storagePath }}
+    {{- else -}}
+      'photoprism.sqlite'
+    {{- end -}}
+
+  {{- else -}}  {{/* mysql driver */}}
+
+    {{- with .Values.database }}
+      {{- printf "%s:%s@tcp(%s:%d)/%s?parseTime=true" .user .password .host ( .port | default 3306 | int) .name -}}
+    {{- end -}}
+    {{/* cast port, an int, to int, because of this bug: https://github.com/helm/helm/issues/1707 */}}
+
+  {{- end -}}
+
+{{- end -}}
+

@@ -1,19 +1,26 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: config
+  name: environment
   labels:
 {{ include "photoprism.labels" . | indent 4 }}
 data:
-  debug: "{{ .Values.debug }}"
-  serverMode: {{ if eq .Values.debug "true" -}} debug {{ else -}} release {{ end }}
-  cachePath: {{ .Values.persistence.cachePath }}
-  importPath: {{ .Values.persistence.importPath }}
-  exportPath: {{ .Values.persistence.exportPath }}
-  originalsPath: {{ .Values.persistence.originalsPath }}
-  driver: {{ .Values.database.driver }}
-{{- if eq .Values.database.driver "internal" }}
-  dsn: 'root:photoprism@tcp(localhost:4000)/photoprism?parseTime=true'
-{{ else }}
-  dsn: '{{ .Values.database.user }}:{{ .Values.database.password }}@tcp({{ .Values.database.host }}:{{ .Values.database.port }})/{{ .Values.database.name }}?parseTime=true'
-{{ end }}
+{{- range $key, $value := .Values.config }}
+  {{ $key }}: {{ $value | quote }}
+{{- end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: storage
+  labels:
+{{ include "photoprism.labels" . | indent 4 }}
+data:
+  PHOTOPRISM_DATABASE_DRIVER: {{ .Values.database.driver }}
+{{- if .Values.persistence.enabled }}
+{{- with .Values.persistence }}
+  {{ if .originalsPath }}PHOTOPRISM_ORIGINALS_PATH: {{ .originalsPath }}{{ end }}
+  {{ if .importPath    }}PHOTOPRISM_IMPORT_PATH: {{ .importPath }}{{ end }}
+  {{ if .storagePath   }}PHOTOPRISM_STORAGE_PATH: {{ .storagePath }}{{ end }}
+{{- end }}
+{{- end }}
