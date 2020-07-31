@@ -54,7 +54,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">persistence.enabled</span>    | Enable persistent storage | <span style="font-family: monospace">true</span> |
 | <span style="font-family: monospace">persistence.importPath</span> | Path to imported images | <span style="font-family: monospace">/assets/photos/import</span> |
 | <span style="font-family: monospace">persistence.originalsPath</span> | Path to pre-existing photos | <span style="font-family: monospace">/assets/photos/originals</span> |
-| <span style="font-family: monospace">persistence.storagePath</span> | Path to pre-existing photos | <span style="font-family: monospace">/assets/photos/originals</span> |
+| <span style="font-family: monospace">persistence.storagePath</span> | Location for PhotoPrism to store generated content (e.g., thumbnails) | <span style="font-family: monospace">/assets/photos/originals</span> |
 | <span style="font-family: monospace">persistence.volumeMounts</span>  | VolumeMounts for Photoprism | See <span style="font-family: monospace">values.yaml</span> |
 | <span style="font-family: monospace">persistence.volumes</span>    | Volumes for Photoprism | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">persistence.volumeClaimTemplates</span> | VolumeClaimTemplate for Photoprism | See <span style="font-family: monospace">values.yaml</span> |
