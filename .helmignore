@@ -20,3 +20,8 @@
 .idea/
 *.tmproj
 .vscode/
+*.rb
+*.sh
+*.tgz
+# hack
+*.yml
