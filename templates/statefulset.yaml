@@ -70,8 +70,15 @@ spec:
       - name: originals
         emptyDir: {}
     {{- end }}
-
 {{- if and .Values.persistence.enabled .Values.persistence.volumeClaimTemplates }}
   volumeClaimTemplates:
-    {{- toYaml .Values.persistence.volumeClaimTemplate | nindent 2 }}
+    {{- toYaml .Values.persistence.volumeClaimTemplates | nindent 2 }}
 {{- end }}
+{{- with .Values.affinity }}
+      affinity:
+{{ toYaml . | indent 8 }}
+    {{- end }}
+    {{- with .Values.tolerations }}
+      tolerations:
+{{ toYaml . | indent 8 }}
+    {{- end }}

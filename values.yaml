@@ -46,7 +46,7 @@ persistence:
       server: my.nas.hostname
       path: /photoprism
 
-  # volumeClaimTemplate:
+  # volumeClaimTemplates:
   # - metadata:
   #     name: photoprism
   #   spec:
