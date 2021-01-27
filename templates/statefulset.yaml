@@ -59,7 +59,9 @@ spec:
           name: http
         volumeMounts:
           {{- toYaml .Values.persistence.volumeMounts | nindent 8 }}
-
+    {{- if .Values.sidecarContainers }}
+    {{- toYaml .Values.sidecarContainers | nindent 6 }}
+    {{- end }}
     {{- if and .Values.persistence.enabled .Values.persistence.volumes }}
       volumes:
       {{- toYaml .Values.persistence.volumes | nindent 6 }}

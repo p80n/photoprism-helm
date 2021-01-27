@@ -24,6 +24,10 @@ config:
 # nodeSelector:
 #   kubernetes.io/hostname:
 
+# sidecarContainers:
+#   - name: sidecar
+#     image: alpine
+
 persistence:
   enabled: true
   storagePath:   &storagePath    /photoprism/storage
