@@ -51,6 +51,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">config</span>                  | Map of environment variables to configure PhotoPrism's runtime behavior | |
 | <span style="font-family: monospace">config.PHOTOPRISM_DEBUG</span> | Enable verbose logging | |
 | <span style="font-family: monospace">config.PHOTOPRISM_PUBLIC</span> | Allow passwordless access | |
+| <span style="font-family: monospace">sidecarContainers</span>      | List of container images to run as sidecars | |
 | <span style="font-family: monospace">persistence.enabled</span>    | Enable persistent storage | <span style="font-family: monospace">true</span> |
 | <span style="font-family: monospace">persistence.importPath</span> | Path to imported images | <span style="font-family: monospace">/assets/photos/import</span> |
 | <span style="font-family: monospace">persistence.originalsPath</span> | Path to pre-existing photos | <span style="font-family: monospace">/assets/photos/originals</span> |
