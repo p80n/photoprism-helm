@@ -45,6 +45,7 @@ See values.yaml for a more complete listing.
 | Parameter                               | Description    | Default     |
 |-----------------------------------------|----------------|--------------|
 | <span style="font-family: monospace">adminPassword</span>       | Password for admin account | photoprism |
+| <span style="font-family: monospace">existingSecret</span>         | Use existing secret for admin account (key PHOTOPRISM_ADMIN_PASSWORD) | |
 | <span style="font-family: monospace">image.repository</span>       | Image repository | <span style="font-family: monospace">photoprism/photoprism</span> |
 | <span style="font-family: monospace">image.tag</span>              | Image tag | <span style="font-family: monospace">20200729</span> |
 | <span style="font-family: monospace">image.pullPolicy</span>       | Image pull policy | <span style="font-family: monospace">IfNotPresent</span> |
@@ -72,6 +73,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">database.password</span>      | Remote database password | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.host</span>          | Remote database host | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.port</span>          | Remote database port | <span style="font-family: monospace">nil</span> |
+| <span style="font-family: monospace">database.existingSecret</span> | Use existing secret for database DSN (key PHOTOPRISM_DATABASE_DSN) | |
 
 
 For setting nested values, it's generally easiest to just specify a YAML file that with the correct values:

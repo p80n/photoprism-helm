@@ -42,8 +42,18 @@ spec:
             name: environment
         - configMapRef:
             name: storage
+        {{- if or (not .Values.existingSecret) (not .Values.database.existingSecret) }}
         - secretRef:
             name: credentials
+        {{- end }}
+        {{- if .Values.existingSecret }}
+        - secretRef:
+            name: {{ .Values.existingSecret }}
+        {{- end }}
+        {{- if and .Values.database.existingSecret (ne (default "" .Values.existingSecret) (default "" .Values.database.existingSecret)) }}
+        - secretRef:
+            name: {{ .Values.database.existingSecret }}
+        {{- end }}
         livenessProbe:
           httpGet:
             path: /
