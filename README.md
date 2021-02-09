@@ -45,16 +45,18 @@ See values.yaml for a more complete listing.
 | Parameter                               | Description    | Default     |
 |-----------------------------------------|----------------|--------------|
 | <span style="font-family: monospace">adminPassword</span>       | Password for admin account | photoprism |
+| <span style="font-family: monospace">existingSecret</span>         | Use existing secret for admin account (key PHOTOPRISM_ADMIN_PASSWORD) | |
 | <span style="font-family: monospace">image.repository</span>       | Image repository | <span style="font-family: monospace">photoprism/photoprism</span> |
 | <span style="font-family: monospace">image.tag</span>              | Image tag | <span style="font-family: monospace">20200729</span> |
 | <span style="font-family: monospace">image.pullPolicy</span>       | Image pull policy | <span style="font-family: monospace">IfNotPresent</span> |
 | <span style="font-family: monospace">config</span>                  | Map of environment variables to configure PhotoPrism's runtime behavior | |
 | <span style="font-family: monospace">config.PHOTOPRISM_DEBUG</span> | Enable verbose logging | |
 | <span style="font-family: monospace">config.PHOTOPRISM_PUBLIC</span> | Allow passwordless access | |
+| <span style="font-family: monospace">sidecarContainers</span>      | List of container images to run as sidecars | |
 | <span style="font-family: monospace">persistence.enabled</span>    | Enable persistent storage | <span style="font-family: monospace">true</span> |
 | <span style="font-family: monospace">persistence.importPath</span> | Path to imported images | <span style="font-family: monospace">/assets/photos/import</span> |
 | <span style="font-family: monospace">persistence.originalsPath</span> | Path to pre-existing photos | <span style="font-family: monospace">/assets/photos/originals</span> |
-| <span style="font-family: monospace">persistence.storagePath</span> | Path to pre-existing photos | <span style="font-family: monospace">/assets/photos/originals</span> |
+| <span style="font-family: monospace">persistence.storagePath</span> | Location for PhotoPrism to store generated content (e.g., thumbnails) | <span style="font-family: monospace">/assets/photos/originals</span> |
 | <span style="font-family: monospace">persistence.volumeMounts</span>  | VolumeMounts for Photoprism | See <span style="font-family: monospace">values.yaml</span> |
 | <span style="font-family: monospace">persistence.volumes</span>    | Volumes for Photoprism | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">persistence.volumeClaimTemplates</span> | VolumeClaimTemplate for Photoprism | See <span style="font-family: monospace">values.yaml</span> |
@@ -71,6 +73,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">database.password</span>      | Remote database password | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.host</span>          | Remote database host | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.port</span>          | Remote database port | <span style="font-family: monospace">nil</span> |
+| <span style="font-family: monospace">database.existingSecret</span> | Use existing secret for database DSN (key PHOTOPRISM_DATABASE_DSN) | |
 
 
 For setting nested values, it's generally easiest to just specify a YAML file that with the correct values:

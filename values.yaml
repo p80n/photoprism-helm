@@ -10,6 +10,8 @@ fullnameOverride: ""
 
 # Defaults to 'photoprism'
 #adminPassword: ""
+# Use existing secret for Admin password, key 'PHOTOPRISM_ADMIN_PASSWORD'
+#existingSecret:
 
 # Available properties can be discovered by running the command:
 #   photoprism config
@@ -23,6 +25,10 @@ config:
 
 # nodeSelector:
 #   kubernetes.io/hostname:
+
+# sidecarContainers:
+#   - name: sidecar
+#     image: alpine
 
 persistence:
   enabled: true
@@ -103,3 +109,5 @@ database:
   # password: photoprism
   # port: 3306
   # host: mariadb.db-mariadb
+# Ignore above settings and use existing secret for database DSN. Key 'PHOTOPRISM_DATABASE_DSN'
+  # existingSecret:
