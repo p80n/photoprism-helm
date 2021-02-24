@@ -8,7 +8,7 @@ PhotoPrism is a server-based application for browsing, organizing, and sharing y
 
 ```bash
 helm repo add p80n https://p80n.github.io/photoprism-helm/
-helm install p80n/photoprism --set persistence=false
+helm install photoprism p80n/photoprism --set persistence=false
 ```
 
 ## Introduction
