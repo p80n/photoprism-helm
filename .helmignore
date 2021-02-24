@@ -25,3 +25,5 @@
 *.tgz
 # hack
 *.yml
+.helmignore
+index.yaml

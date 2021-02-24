@@ -2,7 +2,7 @@
 
 image:
   repository: photoprism/photoprism
-  tag: "20200729"
+  tag: "20210222"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
