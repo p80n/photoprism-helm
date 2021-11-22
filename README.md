@@ -39,9 +39,6 @@ The following table lists common configurable parameters of the Photoprism chart
 See values.yaml for a more complete listing.
 
 
-| <span style="font-family: monospace">persistence.originalsPath</span> | Path to pre-existing photos | <span style="font-family: monospace">/assets/photos/originals</span> |
-| <span style="font-family: monospace">debug</span>                  | Enable verbose logging | <span style="font-family: monospace">true</span> |
-
 | Parameter                               | Description    | Default     |
 |-----------------------------------------|----------------|--------------|
 | <span style="font-family: monospace">adminPassword</span>       | Password for admin account | photoprism |
