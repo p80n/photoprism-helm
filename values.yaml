@@ -2,7 +2,7 @@
 
 image:
   repository: photoprism/photoprism
-  tag: "20210222"
+  tag: "20211215"
   pullPolicy: IfNotPresent
 
 nameOverride: ""
@@ -100,7 +100,7 @@ resources:
 # affinity: {}
 
 
-# To use a remote MySQL or TiDB instance, set the value for driver to 'mysql'
+# To use a remote MySQL instance, set the value for driver to 'mysql'
 database:
   driver: sqlite
 # Set these values only if the mysql driver is used
