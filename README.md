@@ -8,7 +8,7 @@ PhotoPrism is a server-based application for browsing, organizing, and sharing y
 
 ```bash
 helm repo add p80n https://p80n.github.io/photoprism-helm/
-helm install p80n/photoprism --set persistence=false
+helm install photoprism p80n/photoprism --set persistence.enabled=false
 ```
 
 ## Introduction
@@ -29,7 +29,7 @@ the experience:
 To install the chart with the release name `my-release`:
 
 ```bash
-helm install p80n/photoprism --name my-release --namespace photoprism -f values.yaml
+helm install photoprism p80n/photoprism --create-namespace --namespace photoprism -f values.yaml
 ```
 
 
@@ -39,15 +39,12 @@ The following table lists common configurable parameters of the Photoprism chart
 See values.yaml for a more complete listing.
 
 
-| <span style="font-family: monospace">persistence.originalsPath</span> | Path to pre-existing photos | <span style="font-family: monospace">/assets/photos/originals</span> |
-| <span style="font-family: monospace">debug</span>                  | Enable verbose logging | <span style="font-family: monospace">true</span> |
-
 | Parameter                               | Description    | Default     |
 |-----------------------------------------|----------------|--------------|
 | <span style="font-family: monospace">adminPassword</span>       | Password for admin account | photoprism |
 | <span style="font-family: monospace">existingSecret</span>         | Use existing secret for admin account (key PHOTOPRISM_ADMIN_PASSWORD) | |
 | <span style="font-family: monospace">image.repository</span>       | Image repository | <span style="font-family: monospace">photoprism/photoprism</span> |
-| <span style="font-family: monospace">image.tag</span>              | Image tag | <span style="font-family: monospace">20200729</span> |
+| <span style="font-family: monospace">image.tag</span>              | Image tag | <span style="font-family: monospace">20210222</span> |
 | <span style="font-family: monospace">image.pullPolicy</span>       | Image pull policy | <span style="font-family: monospace">IfNotPresent</span> |
 | <span style="font-family: monospace">config</span>                  | Map of environment variables to configure PhotoPrism's runtime behavior | |
 | <span style="font-family: monospace">config.PHOTOPRISM_DEBUG</span> | Enable verbose logging | |
@@ -79,12 +76,12 @@ See values.yaml for a more complete listing.
 For setting nested values, it's generally easiest to just specify a YAML file that with the correct values:
 
 ```bash
-$ helm install p80n/photoprism-helm --name my-release -f values.yaml
+$ helm install photoprism p80n/photoprism-helm -f values.yaml
 ```
 
 You can specify each parameter using the `--set key=value[,key=value]` argument to `helm install`, but for nested values, it's complicated. For example:
 ```bash
-$ helm install p80n/photoprism-helm --name my-release \
+$ helm install photoprism p80n/photoprism-helm \
     --set=image.tag=latest \
     --set=volumes[0].name=originals --set=volumes[0].nfs.server=my.nfs.server --set=volumes[0].nfs.path=/path
 ```
