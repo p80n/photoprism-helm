@@ -76,7 +76,8 @@ ingress:
   hosts:
   - host: my.domain.com
     paths:
-    - /
+    - path: /
+      pathtType: Prefix
   tls:
   - hosts:
     - my.domain.com
