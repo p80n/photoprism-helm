@@ -28,22 +28,24 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-  {{- range .Values.ingress.hosts }}
+  {{- range $.Values.ingress.hosts }}
     - host: {{ .host | quote }}
       http:
         paths:
         {{- range .paths }}
           - path: {{ . }}
+            {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
+            pathType: Prefix
             backend:
-              {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
                 name: {{ $fullName }}
                 port:
-                  number: http
-              {{- else }}
+                  number: 80
+            {{- else }}
+            backend:
               serviceName: {{ $fullName }}
-              servicePort: http
-              {{- end }}
+              servicePort: 80
+            {{- end }}
         {{- end }}
   {{- end }}
 {{- end }}
