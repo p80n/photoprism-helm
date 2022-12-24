@@ -31,12 +31,6 @@ spec:
       - name: photoprism
         image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
-
-        env:
-        - name: PHOTOPRISM_HTTP_HOST
-          value: 0.0.0.0
-        - name: PHOTOPRISM_HTTP_PORT
-          value: "2342"
         envFrom:
         - configMapRef:
             name: environment
