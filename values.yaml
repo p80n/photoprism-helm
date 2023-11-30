@@ -36,36 +36,28 @@ config:
 
 persistence:
   enabled: true
-    # storagePath: &storagePath /photoprism/storage
-    # originalsPath: &originalsPath /photoprism/originals
 
-    # volumeMounts:
-    # - name: originals
-    #   mountPath: *originalsPath
-    #   subPath: photos/family
-    #- name: storage
-    #  mountPath: *storagePath
-
-      #  volumes:
-      #  - name: originals
-      #    nfs:
-      #      server: my.nas.hostname
-      #      path: /media
-      #  - name: storage
-      #    nfs:
-      #      server: my.nas.hostname
-      #      path: /photoprism
+  volumeMounts:
+    - name: originals
+      mountPath: /photoprisim/originals
+    - name: storage
+      mountPath: /photoprisim/storage
 
   volumeClaimTemplates:
-  - metadata:
-      name: photoprism-mount
-    spec:
-      accessModes: ["ReadWriteMany"]
-      storageClassName: "my-storage-class"   # You'll probably want to ensure your storage class has `reclaimPolicy: Retain`
-      resources:
-        requests:
-          storage: 60Gi
-
+    - metadata:
+        name: originals
+      spec:
+        accessModes: ["ReadWriteMany"]
+        resources:
+          requests:
+            storage: 60Gi
+    - metadata:
+        name: storage
+      spec:
+        accessModes: ["ReadWriteMany"]
+        resources:
+          requests:
+            storage: 60Gi
 
 service:
   type: ClusterIP
