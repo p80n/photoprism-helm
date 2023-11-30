@@ -2,16 +2,17 @@
 
 image:
   repository: photoprism/photoprism
+  # TODO: Update this to a more recent tag once it's running successfully
   tag: "20211215"
   pullPolicy: IfNotPresent
 
-nameOverride: ""
-fullnameOverride: ""
+nameOverride: "insight"
+fullnameOverride: "project-insight"
 
 # Defaults to 'photoprism'
 #adminPassword: ""
 # Use existing secret for Admin password, key 'PHOTOPRISM_ADMIN_PASSWORD'
-#existingSecret:
+existingSecret: project-insight-secret
 
 # Available properties can be discovered by running the command:
 #   photoprism config
@@ -22,6 +23,9 @@ config:
   PHOTOPRISM_DEBUG: true
   PHOTOPRISM_PUBLIC: false
   PHOTOPRISM_READONLY: true
+  PHOTOPRISM_SITE_CAPTION: "Project Insight"
+  PHOTOPRISM_SITE_DESCRIPTION: "We take the world as it is, not as we'd like it to be"
+  PHOTOPRISM_SITE_AUTHOR: "@project-insight"
 
 # nodeSelector:
 #   kubernetes.io/hostname:
@@ -32,35 +36,35 @@ config:
 
 persistence:
   enabled: true
-  storagePath:   &storagePath    /photoprism/storage
-  originalsPath: &originalsPath /photoprism/originals
+    # storagePath: &storagePath /photoprism/storage
+    # originalsPath: &originalsPath /photoprism/originals
 
-  volumeMounts:
-  - name: originals
-    mountPath: *originalsPath
-    subPath: photos/family
-  - name: storage
-    mountPath: *storagePath
+    # volumeMounts:
+    # - name: originals
+    #   mountPath: *originalsPath
+    #   subPath: photos/family
+    #- name: storage
+    #  mountPath: *storagePath
 
-  volumes:
-  - name: originals
-    nfs:
-      server: my.nas.hostname
-      path: /media
-  - name: storage
-    nfs:
-      server: my.nas.hostname
-      path: /photoprism
+      #  volumes:
+      #  - name: originals
+      #    nfs:
+      #      server: my.nas.hostname
+      #      path: /media
+      #  - name: storage
+      #    nfs:
+      #      server: my.nas.hostname
+      #      path: /photoprism
 
-  # volumeClaimTemplates:
-  # - metadata:
-  #     name: photoprism
-  #   spec:
-  #     accessModes: [ "ReadWriteMany" ]
-  #     storageClassName: "my-storage-class"   # You'll probably want to ensure your storage class has `reclaimPolicy: Retain`
-  #     resources:
-  #       requests:
-  #         storage: 100Gi
+  volumeClaimTemplates:
+  - metadata:
+      name: photoprism-mount
+    spec:
+      accessModes: ["ReadWriteMany"]
+      storageClassName: "my-storage-class"   # You'll probably want to ensure your storage class has `reclaimPolicy: Retain`
+      resources:
+        requests:
+          storage: 60Gi
 
 
 service:
@@ -68,9 +72,9 @@ service:
   port: 80
 
 ingress:
-  enabled: false
+  enabled: true
   hosts:
-  - host: my.domain.com
+  - host: project-insight.maximstroud.de
     paths:
     - /
   tls: []

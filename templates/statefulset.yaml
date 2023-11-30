@@ -61,8 +61,10 @@ spec:
         ports:
         - containerPort: 2342
           name: http
+        {{- if and .Values.persistence.enabled .Values.persistence.volumeMounts }}
         volumeMounts:
           {{- toYaml .Values.persistence.volumeMounts | nindent 8 }}
+        {{- end }}
     {{- if .Values.sidecarContainers }}
     {{- toYaml .Values.sidecarContainers | nindent 6 }}
     {{- end }}
