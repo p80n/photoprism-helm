@@ -14,7 +14,7 @@ helm install photoprism p80n/photoprism --set persistence.enabled=false
 ## Introduction
 
 This chart deploys PhotoPrism to your Kubernetes cluster. It's mostly based off the
-[docker-compose](https://github.com/photoprism/photoprism/blob/develop/docker-compose.yml) file
+[docker-compose](https://github.com/photoprism/photoprism/blob/develop/compose.yaml) file
 available at [PhotoPrism's GitHub repository](https://github.com/photoprism/photoprism).
 
 Kubernetes is great for running PhotoPrism since there are a lot of k8s tools available to enhance 
