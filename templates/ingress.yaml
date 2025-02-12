@@ -36,11 +36,6 @@ spec:
       http:
         paths:
         {{- range .paths }}
-            {{- if semverCompare ">=1.18-0" $.Capabilities.KubeVersion.GitVersion }}
-          - path:
-            path: {{ .path }}
-            pathType: {{ .pathType }}
-            {{ else }}
           - path: {{ . }}
             pathType: Prefix
             backend:
