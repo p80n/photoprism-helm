@@ -62,6 +62,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">ingress.enabled</span>        | Enable ingress rules | <span style="font-family: monospace">false</span> |
 | <span style="font-family: monospace">ingress.annotations</span>    | Annotations for ingress | <span style="font-family: monospace">{}</span> |
 | <span style="font-family: monospace">ingress.hosts</span>          | Hosts and paths to respond | See <span style="font-family: monospace">values.yaml</span> |
+| <span style="font-family: monospace">ingress.className</span>      | IngressClassName for ingress | <span style="font-family: monospace"></span> |
 | <span style="font-family: monospace">ingress.tls</span>            | Ingress TLS configuration | <span style="font-family: monospace">[]</span> |
 | <span style="font-family: monospace">resources.requests.memory</span> | Indexing photos requires a bit of memory | <span style="font-family: monospace">2Gi</span> |
 | <span style="font-family: monospace">database.driver</span>        | <span style="font-family: monospace">mysql</span> or <span style="font-family: monospace">internal</span> are supported | <span style="font-family: monospace">internal</span> |
