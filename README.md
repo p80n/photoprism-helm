@@ -72,6 +72,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">database.host</span>          | Remote database host | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.port</span>          | Remote database port | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.existingSecret</span> | Use existing secret for database DSN (key PHOTOPRISM_DATABASE_DSN) | |
+| <span style="font-family: monospace">extraObjects</span>           | Extra K8s manifests to deploy | <span style="font-family: monospace">[]</span> |
 
 
 For setting nested values, it's generally easiest to just specify a YAML file that with the correct values:
