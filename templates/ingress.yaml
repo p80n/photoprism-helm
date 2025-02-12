@@ -1,6 +1,5 @@
 {{- if .Values.ingress.enabled -}}
 {{- $fullName := include "photoprism.fullname" . -}}
-{{- $servicePort := .Values.service.port -}}
 {{- if semverCompare ">=1.19-0" .Capabilities.KubeVersion.GitVersion -}}
 apiVersion: networking.k8s.io/v1
 {{- else if semverCompare ">=1.14-0" .Capabilities.KubeVersion.GitVersion -}}
@@ -18,6 +17,9 @@ metadata:
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
+{{- if and .Values.ingress.className (semverCompare ">=1.18-0" .Capabilities.KubeVersion.GitVersion) }}
+  ingressClassName: {{ .Values.ingress.className }}
+{{- end }}
 {{- if .Values.ingress.tls }}
   tls:
   {{- range .Values.ingress.tls }}
@@ -40,16 +42,16 @@ spec:
             pathType: {{ .pathType }}
             {{ else }}
           - path: {{ . }}
-            {{- end }}
+            pathType: Prefix
             backend:
               {{- if semverCompare ">=1.19-0" $.Capabilities.KubeVersion.GitVersion }}
               service:
                 name: {{ $fullName }}
                 port:
-                  number: {{ $servicePort }}
+                  name: http
               {{- else }}
               serviceName: {{ $fullName }}
-              servicePort:  {{ $servicePort }}
+              servicePort: http
               {{- end }}
         {{- end }}
   {{- end }}

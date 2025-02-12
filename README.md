@@ -14,7 +14,7 @@ helm install photoprism p80n/photoprism --set persistence.enabled=false
 ## Introduction
 
 This chart deploys PhotoPrism to your Kubernetes cluster. It's mostly based off the
-[docker-compose](https://github.com/photoprism/photoprism/blob/develop/docker-compose.yml) file
+[docker-compose](https://github.com/photoprism/photoprism/blob/develop/compose.yaml) file
 available at [PhotoPrism's GitHub repository](https://github.com/photoprism/photoprism).
 
 Kubernetes is great for running PhotoPrism since there are a lot of k8s tools available to enhance 
@@ -62,6 +62,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">ingress.enabled</span>        | Enable ingress rules | <span style="font-family: monospace">false</span> |
 | <span style="font-family: monospace">ingress.annotations</span>    | Annotations for ingress | <span style="font-family: monospace">{}</span> |
 | <span style="font-family: monospace">ingress.hosts</span>          | Hosts and paths to respond | See <span style="font-family: monospace">values.yaml</span> |
+| <span style="font-family: monospace">ingress.className</span>      | IngressClassName for ingress | <span style="font-family: monospace"></span> |
 | <span style="font-family: monospace">ingress.tls</span>            | Ingress TLS configuration | <span style="font-family: monospace">[]</span> |
 | <span style="font-family: monospace">resources.requests.memory</span> | Indexing photos requires a bit of memory | <span style="font-family: monospace">2Gi</span> |
 | <span style="font-family: monospace">database.driver</span>        | <span style="font-family: monospace">mysql</span> or <span style="font-family: monospace">internal</span> are supported | <span style="font-family: monospace">internal</span> |
@@ -71,6 +72,7 @@ See values.yaml for a more complete listing.
 | <span style="font-family: monospace">database.host</span>          | Remote database host | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.port</span>          | Remote database port | <span style="font-family: monospace">nil</span> |
 | <span style="font-family: monospace">database.existingSecret</span> | Use existing secret for database DSN (key PHOTOPRISM_DATABASE_DSN) | |
+| <span style="font-family: monospace">extraObjects</span>           | Extra K8s manifests to deploy | <span style="font-family: monospace">[]</span> |
 
 
 For setting nested values, it's generally easiest to just specify a YAML file that with the correct values:
