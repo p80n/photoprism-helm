@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: environment
+  name: {{ .Release.Name }}-environment
   labels:
 {{ include "photoprism.labels" . | indent 4 }}
 data:
@@ -12,7 +12,7 @@ data:
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: storage
+  name: {{ .Release.Name }}-storage
   labels:
 {{ include "photoprism.labels" . | indent 4 }}
 data:
