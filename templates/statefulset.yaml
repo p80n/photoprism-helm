@@ -29,7 +29,7 @@ spec:
 
       containers:
       - name: photoprism
-        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
         imagePullPolicy: {{ .Values.image.pullPolicy }}
 
         env:
@@ -39,12 +39,12 @@ spec:
           value: "2342"
         envFrom:
         - configMapRef:
-            name: environment
+            name: {{ .Release.Name }}-environment
         - configMapRef:
-            name: storage
+            name: {{ .Release.Name }}-storage
         {{- if or (not .Values.existingSecret) (not .Values.database.existingSecret) }}
         - secretRef:
-            name: credentials
+            name: {{ .Release.Name }}-credentials
         {{- end }}
         {{- if .Values.existingSecret }}
         - secretRef:
